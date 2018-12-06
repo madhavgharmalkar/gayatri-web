@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gayatri Calculator</title>
+</head>
+<body>
+    <h1 id="sunrise">Sunrise: </h1>
+    <h1 id="midday">Midday: </h1>
+    <h1 id="sunset">Sunset: </h1>
+</body>
+</html>
+
+<script>
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPosition)
+    }
+    
+    function getPosition(position) {
+        console.log(position)
+        
+        var xhr = new XMLHttpRequest();
+        var url = "/getTime";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                
+                document.getElementById('sunrise').innerHTML = 'Sunrise: ' + json.sunriseStart + " to " + json.sunriseEnd
+                document.getElementById('midday').innerHTML = 'Midday: ' + json.middayStart + " to " + json.middayEnd
+                document.getElementById('sunset').innerHTML = 'Sunset: ' + json.sunsetStart + " to " + json.sunsetEnd
+
+
+            }
+        };
+
+        var data = JSON.stringify({
+            lat: position.coords.latitude,
+            long: position.coords.longitude
+        });
+        xhr.send(data);
+        
+    }
+    
+</script>
