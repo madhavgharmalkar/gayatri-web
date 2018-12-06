@@ -14,13 +14,12 @@ app.post('/gettime', (req, res) => {
     // console.log(midday)
 
     res.json({
-        sunriseStart: moment(times.sunrise).subtract(24, 'minutes').format('h:mma'),
-        sunriseEnd: moment(times.sunrise).add(24, 'minutes').format('h:mma'),
-        middayStart: moment(midday).subtract(24, 'minutes').format('h:mma'),
-        middayEnd: moment(midday).add(24, 'minutes').format('h:mma'),
-        sunsetStart: moment(times.sunset).subtract(24, 'minutes').format('h:mma'),
-        sunsetEnd: moment(times.sunset).add(24, 'minutes').format('h:mma')
-
+        sunriseStart: moment(times.sunrise).subtract(24, 'minutes'),
+        sunriseEnd: moment(times.sunrise).add(24, 'minutes'),
+        middayStart: moment(midday).subtract(24, 'minutes'),
+        middayEnd: moment(midday).add(24, 'minutes'),
+        sunsetStart: moment(times.sunset).subtract(24, 'minutes'),
+        sunsetEnd: moment(times.sunset).add(24, 'minutes')
     })
 })
 
